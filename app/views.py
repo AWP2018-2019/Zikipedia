@@ -22,3 +22,8 @@ def index(request):
     articles = Article.objects.all()
     return render(request, 'index.html', {'articles': articles})
     
+def article_detail(request, pk):
+    article = Article.objects.get(id=pk)
+    form = ReviewForm()
+    return render(request, "article_detail.html", 
+    {"article": article, "form": form})
