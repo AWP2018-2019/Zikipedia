@@ -18,12 +18,8 @@ class Article(models.Model):
         return "{} created by {} at {}".format(self.text, self.created_by.username, self.created_at)
         
 
-class Review(models.Model):
-    text = models.CharField(max_length=25)
-    article = models.ForeignKey(Article, related_name="reviews")
-    created_by = models.ForeignKey(User, related_name="reviews")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class Category(models.Model):
+    name = models.CharField(max_length=25)
 
     def __str__(self):
-        return "{} created by {} at {}".format(self.text, self.created_by.username, self.created_at)
+        return "Categoria {}".format(self.name)

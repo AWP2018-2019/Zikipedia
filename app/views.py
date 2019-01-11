@@ -12,8 +12,8 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, RedirectView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from forms import ReviewForm
-from models import Article, Review
+from forms import CategoryForm
+from models import Article, Category
 
 # def index(request):
 #     return HttpResponse("Welcome to Zikipedia!")
@@ -24,6 +24,6 @@ def index(request):
     
 def article_detail(request, pk):
     article = Article.objects.get(id=pk)
-    form = ReviewForm()
+    form = CategoryForm()
     return render(request, "article_detail.html", 
     {"article": article, "form": form})
