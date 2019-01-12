@@ -68,6 +68,7 @@ class ArticleCreateView(CreateView):
         
         return redirect(reverse_lazy("article_detail", kwargs={"pk": article.id }))
 
+<<<<<<< HEAD
 class ArticleEditView(UpdateView):
     model = Article
     fields = ['title', 'text', 'category']
@@ -81,3 +82,15 @@ class ArticleEditView(UpdateView):
 
         article.save()
         return redirect(reverse_lazy("article_detail", kwargs={"pk": self.kwargs['pk']}))
+=======
+class CategoryEditView(UpdateView):
+    model = Category
+    fields = ['name']
+    template_name = 'category_edit.html'
+
+    def form_valid(self, form):
+        category = Category.objects.get(pk=self.kwargs['pk'])
+        category.name = form.cleaned_data['name']
+        category.save()
+        return redirect(reverse_lazy("category_detail", kwargs={"pk": self.kwargs['pk']}))
+>>>>>>> create category edit
