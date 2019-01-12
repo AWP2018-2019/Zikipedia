@@ -1,12 +1,35 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% block title %}
   Create post
 {% endblock%}
 
 {% block content %}
-  <form method="post" class="form-inline justify-content-center">
+<div class="container">
+  {{form.errors}}
+  <form method="post" class=" justify-content-center">
     {% csrf_token %}
-    {{form.as_p}}
-    <input class="btn btn-secondary" type="submit" value="Create article" />
+    {% bootstrap_field form.title %}
+    <br/>
+    <div class="form-group">
+      <label class="control-label" for="id_text">Text</label>
+      <textarea id="summernote" name="text" cols="40" rows="10" class="form-control" placeholder="Text" title="" id="id_text">
+        
+      </textarea></div>
+    <br/>
+    {% bootstrap_field form.category %}
+    <input class="btn btn-secondary" type="submit" value="Creare articol" />
   </form>
+  </div>
+{% endblock %}
+
+{%block scripts %}
+
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('#summernote').summernote();
+      });
+    </script>
 {% endblock %}

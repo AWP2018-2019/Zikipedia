@@ -4,38 +4,55 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-<a class="btn btn-secondary" style="margin-left:1.2%;margin-top:5%;" href="">
-  Create new article
-</a>
-{% endif %}
 
-<div class="row container">
+
+
+
+<div class="jumbotron">
+  <h1 align="center"><b><i>Categorii</i></b></h1>
   {%for category in categories %}
-    <div class="col-sm-6 p-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ category.name }}</h5>
-          </div>
-          </div>
-          </div>
+      <a class="btn btn-primary" style="border-color: #eee; border-width: 5px;" href="{% url 'category_detail' category.id %}">
+        {{ category.name }}
+      </a>
   {%endfor%}
 </div>
 
-<div class="row container">
-  {% for article in articles %}
-    <div class="col-sm-6 p-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ article.title }}</h5>
-          <p class="card-text">Created by: {{ article.created_by.username }}</p>
-          <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">See full article</a>
-      </div>
-      <div class="card-footer text-muted">
-        {{ article.created_at }}
-      </div>
-    </div>
+<div class="jumbotron">
+    <h1 align="center"><b><i>Articole recente</i></b></h1>
+  
+  <div style="padding-top: 30px; padding-right: 0px;" align="center">
+    <a class="btn btn-primary" align="center" href="{% url 'allarticles' %}">Vezi toate articolele</a>
+    {% if user.is_authenticated %}
+    <a class="btn btn-success" align="center" href="{% url 'article_create' %}">Adauga un articol</a>
+    {% endif %}
   </div>
-  {% endfor %}
 </div>
+
+  {% for article in articles %}
+    <div class="list-group">
+    <a class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <div class="card-header">
+                <h3 class="mb-1">{{article.title}}</h3>
+            </div>
+            <small class="text-muted">{{article.created_ad}}</small>
+        </div>
+        <br />
+        <h4 class="mb-1"><b><i>Continutul articolului: </i></b></h4>
+        <p class="mb-1">{{ article.text | safe }}</p>
+        <br />
+        <br />
+        <small class="text-muted">Categorie: {{article.category.name}}</small>
+        <br />
+        <small class="text-muted"><i>Articol publicat de <strong>{{article.created_by}}</strong></i></small>
+        <a class="btn btn-outline-primary" align="right" href="{% url 'article_detail' article.id %}">Afisare articol</a>
+    </a>
+    <br />
+</div>
+<br />
+<br />
+  {% endfor %}
+
+<br />
+<br />
 {% endblock %}

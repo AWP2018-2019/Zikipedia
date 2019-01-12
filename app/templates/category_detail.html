@@ -1,40 +1,53 @@
 {% extends 'base.html' %}
 {% block title %}
-  {{ post.text }}
+  {{ category.name }}
 {% endblock%}
 
 {% block content %}
-<div class="container">
-  <div class="p-3">
-    <div class="card">
-      <div class="card-body">
-        <h1 class="card-title">{{ category.name }}</h1>
+<div class="btn-group" role="group" style="padding-top: 30px; padding-left: 50px;">
+    <h1>Categoria <i>{{category.name}} </i></h1>
 
-      </div>
-<div class="row container">
-  {% for article in category.articles.all %}
-    <div class="col-sm-6 p-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ article.title }}</h5>
-          <p class="card-text">Created by: {{ article.created_by.username }}</p>
-          <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">See full article</a>
-      </div>
-      <div class="card-footer text-muted">
-        {{ article.created_at }}
-      </div>
+    <div style="padding-left: 30px">
+        <a class="btn btn-info" href="{% url 'category_edit' category.id %}">Modifica categoria</a>
     </div>
-  </div>
-  {% endfor %}
+
+    <div style="padding-left: 30px">
+      <button class="btn btn-danger" href="{% url 'category_delete' category.id %}">Sterge categoria</button>
+    </div>
+
+    <div style="padding-left: 30px">
+        <a class="btn btn-success" href="{% url 'article_create' %}">Adauga un articol</a>
+    </div>
 </div>
+<br />
+<br />
 
-    <div class="m-2">
-      {% if user == post.created_by %}
-        <a class="btn btn-secondary" href="{% url 'post_edit' post.id %}">Edit post</a>
-        <a class="btn btn-secondary" href="{% url 'post_delete' post.id %}">Delete post</a>
-      {% endif %}
-    </div>
+  {% for article in category.articles.all %}
+    <div class="list-group">
+            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="card-header">
+                        <h3 class="mb-1">{{article.title}}</h3>
+                    </div>
+                    <small class="text-muted">{{article.created_at}}</small>
+                </div>
+                <br />
+                <h4 class="mb-1"><b><i>Continutul articolului: </i></b></h4>
+                <p class="mb-1">{{ article.text | safe }}</p>
+                <small class="text-muted">{{article.category.name}}</small>
+                <a class="btn btn-outline-primary" align="right" href="{% url 'article_detail' article.id %}">Afisare articol</a>
+            </a>
+            <br />
+        </div>
+        <br />
+        <br />
+  {% endfor %}
 
-  </div>
- </div>
+
+<hr />
+<a class="btn btn-success" href="{% url 'allarticles' %}">Inapoi la articole</a>
+<br /><br />
+<a class="btn btn-success" href="{% url 'allcategories' %}">Inapoi la categorii</a>
+<br />
+<br />
  {%endblock%}
