@@ -11,6 +11,7 @@
       <div class="card-body">
         <h1 class="card-title">{{ article.text }}</h1>
         <p class="card-text">Created by: {{ article.created_by.username }}</p>
+        <p class="card-text">{{ article.category }}</p>
       </div>
       <div class="card-footer text-muted">
         {{ article.created_at }}
