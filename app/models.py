@@ -19,7 +19,7 @@ class Category(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=50)
-    text = models.CharField(max_length=20000)
+    text = models.TextField()
     created_by = models.ForeignKey(User, related_name='articles')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
