@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+  {{ post.text }}
+{% endblock%}
+
+{% block content %}
+<div class="container">
+  <div class="p-3">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title">{{ category.name }}</h1>
+
+      </div>
+<div class="row container">
+  {% for article in category.articles.all %}
+    <div class="col-sm-6 p-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ article.title }}</h5>
+          <p class="card-text">Created by: {{ article.created_by.username }}</p>
+          <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">See full article</a>
+      </div>
+      <div class="card-footer text-muted">
+        {{ article.created_at }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+    <div class="m-2">
+      {% if user == post.created_by %}
+        <a class="btn btn-secondary" href="{% url 'post_edit' post.id %}">Edit post</a>
+        <a class="btn btn-secondary" href="{% url 'post_delete' post.id %}">Delete post</a>
+      {% endif %}
+    </div>
+
+  </div>
+ </div>
+ {%endblock%}

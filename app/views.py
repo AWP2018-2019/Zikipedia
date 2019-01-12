@@ -19,8 +19,9 @@ from models import Article, Category
 #     return HttpResponse("Welcome to Zikipedia!")
 
 def index(request):
-    articles = Article.objects.all()
-    return render(request, 'index.html', {'articles': articles})
+    categories = Category.objects.all()
+    articles = Article.objects.order_by('-created_at')[0:6]
+    return render(request, "index.html", {"categories": categories, "articles": articles})
 
     
 def all_articles(request):
@@ -35,7 +36,7 @@ def all_categories(request):
 def article_detail(request, pk):
     article = Article.objects.get(id=pk)
     return render(request, "article_detail.html", 
-    {"article": article})   
+        {"article": article})   
     
 class CategoryCreateView(CreateView):
     model = Category
@@ -47,3 +48,23 @@ class CategoryCreateView(CreateView):
             )
             
         return redirect(reverse_lazy("category_detail", kwargs={"pk": category.id}))        
+
+    # {"article": article, "form": form})
+    
+def category_detail(request, pk):
+    category = Category.objects.get(id=pk)
+    return render(request, "category_detail.html", {"category": category})
+    
+class ArticleCreateView(CreateView):
+    model = Article
+    fields = ['title', 'text', 'category']
+    template_name = 'article_create.html'
+    
+    def form_valid(self, form):
+        article = Article.objects.create(
+            created_by=self.request.user,
+            **form.cleaned_data
+        )
+        
+        return redirect(reverse_lazy("article_detail", kwargs={"pk": article.id }))
+
