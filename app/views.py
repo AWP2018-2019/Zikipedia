@@ -81,6 +81,8 @@ class ArticleEditView(UpdateView):
 
         article.save()
         return redirect(reverse_lazy("article_detail", kwargs={"pk": self.kwargs['pk']}))
+        
+        
 class CategoryEditView(UpdateView):
     model = Category
     fields = ['name']
@@ -98,3 +100,10 @@ class ArticleDeleteView(DeleteView):
     
     def get_success_url(self):
         return reverse_lazy('allarticles')
+
+class CategoryDeleteView(DeleteView):
+    template_name='category_delete.html'
+    model=Category
+    
+    def get_success_url(self):
+        return reverse_lazy('allcategories')

@@ -11,6 +11,7 @@ from views import (
     ArticleEditView,
     CategoryEditView,
     ArticleDeleteView,
+    CategoryDeleteView,
     )
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     url(r'^article/edit/(?P<pk>[0-9]+)$', ArticleEditView.as_view(), name='article_edit'),
     url(r'^category/edit/(?P<pk>[0-9]+)$', CategoryEditView.as_view(), name='category_edit'),
     url(r'^article/delete/(?P<pk>[0-9]+)$', ArticleDeleteView.as_view(), name='article_delete'),
+    url(r'^category/delete/(?P<pk>[0-9]+)$', CategoryDeleteView.as_view(), name='category_delete'),
     ]
