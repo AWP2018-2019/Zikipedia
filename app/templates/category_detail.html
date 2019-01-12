@@ -21,8 +21,10 @@
 </div>
 <br />
 <br />
-
-  {% for article in category.articles.all %}
+{% if category.articles.all %}
+  {% regroup category.articles.all|dictsortreversed:"created_at" by created_at as articles %}
+  {% for article_group in articles %}
+        {% for article in article_group.list %}
     <div class="list-group">
             <a class="list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-between">
@@ -33,7 +35,7 @@
                 </div>
                 <br />
                 <h4 class="mb-1"><b><i>Continutul articolului: </i></b></h4>
-                <p class="mb-1">{{ article.text | safe }}</p>
+                <p class="mb-1">{{ article.text | safe | truncatewords_html:100 }}</p>
                 <small class="text-muted">{{article.category.name}}</small>
                 <a class="btn btn-outline-primary" align="right" href="{% url 'article_detail' article.id %}">Afisare articol</a>
             </a>
@@ -42,6 +44,10 @@
         <br />
         <br />
   {% endfor %}
+  {% endfor %}
+  {% else %}
+      <p> No articles yet.</p>
+    {% endif %}
 
 
 <hr />
@@ -50,4 +56,4 @@
 <a class="btn btn-success" href="{% url 'allcategories' %}">Inapoi la categorii</a>
 <br />
 <br />
- {%endblock%}
+ {% endblock %}

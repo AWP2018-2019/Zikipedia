@@ -44,8 +44,7 @@
         </div>
         <br />
         <h4 class="mb-1"><b><i>Continutul articolului: </i></b></h4>
-        <p class="mb-1">{{ article.text | safe }}</p>
-        <br />
+        <p class="mb-1">{{ article.text | safe | truncatewords_html:100 }}</p>
         <br />
         <small class="text-muted">Categorie: {{article.category.name}}</small>
         <br />
