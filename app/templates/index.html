@@ -9,7 +9,12 @@
 
 
 <div class="jumbotron">
+  <div>
   <h1 align="center"><b><i>Categorii</i></b></h1>
+    {%if user.is_superuser %}
+  <h1 align="center"><a class="btn btn-success" href="{% url 'category_create' %}">Adauga categorie</a></h1>
+  {%endif%}
+  </div>
   {%for category in categories %}
       <a class="btn btn-primary" style="border-color: #eee; border-width: 5px;" href="{% url 'category_detail' category.id %}">
         {{ category.name }}
