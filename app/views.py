@@ -91,3 +91,10 @@ class CategoryEditView(UpdateView):
         category.name = form.cleaned_data['name']
         category.save()
         return redirect(reverse_lazy("category_detail", kwargs={"pk": self.kwargs['pk']}))
+        
+class ArticleDeleteView(DeleteView):
+    template_name = 'article_delete.html'
+    model = Article
+    
+    def get_success_url(self):
+        return reverse_lazy('allarticles')
