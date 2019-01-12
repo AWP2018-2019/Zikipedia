@@ -21,8 +21,8 @@
     <div class="m-2">
       {% if user == article.created_by %}
       <div class="m-2">
-        <a class="btn btn-secondary" href="">Edit this article</a>
-        <a class="btn btn-secondary" href="">Delete this article</a>
+        <a class="btn btn-primary" href="{%url 'article_edit' article.id %}">Editeaza articol</a>
+        <a class="btn btn-danger" href="{%url 'article_delete' article.id %}">Sterge articol</a>
         </div>
       {% endif %}
     
