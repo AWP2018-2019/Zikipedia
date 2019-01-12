@@ -37,8 +37,9 @@ def article_detail(request, pk):
     article = Article.objects.get(id=pk)
     return render(request, "article_detail.html", 
         {"article": article})   
-    
-class CategoryCreateView(CreateView):
+
+
+class CategoryCreateView(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['name']
     template_name = 'category_create.html'
@@ -55,7 +56,7 @@ def category_detail(request, pk):
     category = Category.objects.get(id=pk)
     return render(request, "category_detail.html", {"category": category})
     
-class ArticleCreateView(CreateView):
+class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
     fields = ['title', 'text', 'category']
     template_name = 'article_create.html'
@@ -68,7 +69,7 @@ class ArticleCreateView(CreateView):
         
         return redirect(reverse_lazy("article_detail", kwargs={"pk": article.id }))
 
-class ArticleEditView(UpdateView):
+class ArticleEditView(LoginRequiredMixin, UpdateView):
     model = Article
     fields = ['title', 'text', 'category']
     template_name = 'article_edit.html'
@@ -83,7 +84,7 @@ class ArticleEditView(UpdateView):
         return redirect(reverse_lazy("article_detail", kwargs={"pk": self.kwargs['pk']}))
         
         
-class CategoryEditView(UpdateView):
+class CategoryEditView(LoginRequiredMixin, UpdateView):
     model = Category
     fields = ['name']
     template_name = 'category_edit.html'
@@ -94,14 +95,14 @@ class CategoryEditView(UpdateView):
         category.save()
         return redirect(reverse_lazy("category_detail", kwargs={"pk": self.kwargs['pk']}))
         
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'article_delete.html'
     model = Article
     
     def get_success_url(self):
         return reverse_lazy('allarticles')
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     template_name='category_delete.html'
     model=Category
     
@@ -138,7 +139,8 @@ class LoginView(TemplateView):
             return redirect(reverse_lazy('index'))
         else:
             return render(request, "login.html", {"form": form})
-            
+
+@login_required    
 def logout_view(request):
     logout(request)
     return redirect(reverse_lazy('index'))
