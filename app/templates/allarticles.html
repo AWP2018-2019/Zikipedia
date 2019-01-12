@@ -6,7 +6,7 @@
 <h2 class="text-primary">Afisare articole</h2>
 <br />
 
-<a class="btn btn-success" href="/Article/New">Adauga un articol</a>
+<a class="btn btn-success" href="{% url 'article_create' %}">Adauga un articol</a>
 <br />
 <br />
   {% for article in article_list %}
