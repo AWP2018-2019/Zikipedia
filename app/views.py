@@ -21,9 +21,29 @@ from models import Article, Category
 def index(request):
     articles = Article.objects.all()
     return render(request, 'index.html', {'articles': articles})
+
+    
+def all_articles(request):
+    article_list=Article.objects.all()
+    return render(request,'allarticles.html',{'article_list': article_list}) #de vazut cum facem ruta
+    
+
+def all_categories(request):
+    category_list=Category.objects.all()
+    return render(request,'allcategories.html',{'category_list': category_list}) #de vazut cum facem ruta
     
 def article_detail(request, pk):
     article = Article.objects.get(id=pk)
-    form = CategoryForm()
     return render(request, "article_detail.html", 
-    {"article": article, "form": form})
+    {"article": article})   
+    
+class CategoryCreateView(CreateView):
+    model = Category
+    fields = ['name']
+    template_name = 'category_create.html'
+    def form_valid(self, form):
+        category=Category.objects.create(
+            **form.cleaned_data
+            )
+            
+        return redirect(reverse_lazy("category_detail", kwargs={"pk": category.id}))        

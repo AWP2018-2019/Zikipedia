@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Zikipedia {% endblock %}
+
+{% block content %}
+<div class="row container">
+  {% for article in article_list %}
+    <div class="col-sm-6 p-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ article.text }}</h5>
+          <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">See articles</a>
+      </div>
+      <div class="card-footer text-muted">
+        {{article.created_at }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

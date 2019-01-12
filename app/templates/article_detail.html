@@ -26,47 +26,5 @@
 
   </div>
 
-  <div class=" col-sm-12">
-    <h2>Reviews</h2>
-    {% if user.is_authenticated %}
-    <form action="" method="post" class="form-inline justify-content-center">
-      {% csrf_token %}
-      <!--{{ form.as_p }}-->
-      <div class="form-group mx-2">
-        <input class="form-control" type="text" name="text" required="" id="id_text" maxlength="200">
-      </div>
-      <input class="btn btn-secondary" type="submit" value="Send review" />
-    </form>
-    {% endif %}
-    {% if article.reviews.all %}
-      {% regroup article.reviews.all|dictsortreversed:"created_at" by created_at as reviews %}
-      {% for review_group in comments %}
-        {% for review in review_group.list %}
-        <div class="card m-3">
-          <div class="m-2">
-            <a class="btn btn-secondary" href="">Edit this review</a>
-            <a class="btn btn-secondary" href="">Delete this reviewt</a>
-          </div>
-          <div class="card-body">
-            <blockquote class="blockquote mb-0">
-              <p>
-                {{ review.text }}
-                {% if review.created_at|date:"Y-m-d H:M" !=  review.updated_at|date:"Y-m-d H:M" %}
-                  <small><i>(edited)</i></small>
-                {% endif %}
-              </p>
-              <footer class="blockquote-footer">reviewed by
-                <cite>{{ review.created_by.username }}</cite>
-                on <cite>{{ review.created_at }}</cite>
-              </footer>
-            </blockquote>
-          </div>
-        </div>
-        {% endfor%}
-      {% endfor %}
-    {% else %}
-      <p> No reviews yet.</p>
-    {% endif %}
-  </div>
 </div>
 {% endblock %}
