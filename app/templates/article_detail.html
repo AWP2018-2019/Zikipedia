@@ -20,12 +20,19 @@
 
     <div class="m-2">
       {% if user == article.created_by %}
+      <div class="m-2">
         <a class="btn btn-secondary" href="">Edit this article</a>
         <a class="btn btn-secondary" href="">Delete this article</a>
+        </div>
       {% endif %}
-    </div>
+    
 
-  </div>
 
-</div>
+<hr />
+<a class="btn btn-primary" href="{%url 'allarticles'%}">Inapoi la articole</a>
+
+<a class="btn btn-success" href="{%url 'article_create'%}">Adauga un articol</a>
+
+<br />
+
 {% endblock %}

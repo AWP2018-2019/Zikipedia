@@ -3,19 +3,36 @@
 {% block title %} Zikipedia {% endblock %}
 
 {% block content %}
-<div class="row container">
+<h2 class="text-primary">Afisare articole</h2>
+<br />
+
+<a class="btn btn-success" href="/Article/New">Adauga un articol</a>
+<br />
+<br />
   {% for article in article_list %}
-    <div class="col-sm-6 p-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ article.text }}</h5>
-          <a href="{% url 'article_detail' article.id %}" class="btn btn-primary">See articles</a>
-      </div>
-      <div class="card-footer text-muted">
-        {{article.created_at }}
-      </div>
-    </div>
-  </div>
+    <div class="list-group">
+    <a class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+            <div class="card-header">
+                <h3 class="mb-1">{{article.title}}</h3>
+            </div>
+            <small class="text-muted">{{article.created_at}}</small>
+        </div>
+        <br />
+        <h4 class="mb-1"><b><i>Continutul articolului: </i></b></h4>
+        <p class="mb-1">{{article.text |safe}}</p>
+        <br />
+        <br />
+        <small class="text-muted">Categorie: {{article.category.name}}</small>
+        <br />
+        <small class="text-muted"><i>Articol publicat de <strong>{{article.created_by}}</strong></i></small>
+        <a class="btn btn-outline-primary" align="right" href="{% url 'article_detail' article.id %}">Afisare articol</a>
+    </a>
+    <br />
+</div>
+<br />
+<br />
+
   {% endfor %}
 </div>
 {% endblock %}
